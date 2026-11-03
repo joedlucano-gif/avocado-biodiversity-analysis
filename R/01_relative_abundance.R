@@ -1,13 +1,8 @@
-# Selected excerpt from figura 1 tesis.R; analytical logic preserved.
-# Requires dplyr and an imported datos table with Orden,
-# Colecta directa and Colecta indirecta columns.
-# See docs/methods-and-inputs.md before running.
-library(dplyr)
-
-orden_ab <- datos %>%
-  mutate(Total = `Colecta directa` + `Colecta indirecta`) %>%
-  group_by(Orden) %>%
-  summarise(Abundancia = sum(Total), .groups = "drop") %>%
-  mutate(Relativa = Abundancia / sum(Abundancia) * 100) %>%
-  arrange(desc(Relativa)) %>%
-  mutate(Orden = factor(Orden, levels = Orden))
+# Adapted from figura 1 tesis.R. Same aggregation, using base R.
+relative_abundance <- function(datos) {
+  totals <- datos[['Colecta directa']] + datos[['Colecta indirecta']]
+  result <- aggregate(totals, list(Orden = datos$Orden), sum)
+  names(result)[2] <- 'Abundancia'
+  result$Relativa <- 100 * result$Abundancia / sum(result$Abundancia)
+  result[order(result$Relativa, decreasing = TRUE), ]
+}
