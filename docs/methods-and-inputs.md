@@ -2,9 +2,9 @@
 
 ## Data
 
-The datasets are currently local and are not published in this repository. To run locally, export each sheet below as UTF-8 CSV under the listed path, keeping the original headers and values. Create the `data/` folder first.
+Both datasets are included as UTF-8 CSV files in `data/`, published with the author's explicit permission. They preserve the original sheet headers and values; no manual export is required.
 
-| Required local file | Supplied workbook / sheet | Rows |
+| Included file | Supplied workbook / sheet | Rows |
 | --- | --- | --- |
 | data/insect_counts.csv | Datos_colecta_directa_indirecta_R(1).xlsx / Datos_R | 32 |
 | data/environment.csv | temp_hr_tidy.xlsx / datos | 216 |
