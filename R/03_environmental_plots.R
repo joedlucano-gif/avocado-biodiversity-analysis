@@ -1,20 +1,21 @@
-# Selected excerpt from tesis f5.R; analytical logic preserved.
-# Requires temp_hr_tidy.xlsx (not included). Defines fig(); does not export a chart.
-# See docs/methods-and-inputs.md for column and time requirements.
-
-library(tidyverse); library(patchwork); library(readxl)
-d <- read_excel("temp_hr_tidy.xlsx") |>
-  mutate(h = as.numeric(substr(hora,1,2)) + as.numeric(substr(hora,4,5))/60,
-         bloque = floor(h))
-
-medias <- d |> group_by(bloque) |>
-  summarise(h = mean(h), temperatura = mean(temperatura), hr = mean(hr))
-
-fig <- function(y, col, lab) {
-  ggplot(d, aes(h, .data[[y]])) +
-    geom_point(alpha = .25, size = 1.4, colour = col) +
-    geom_line(data = medias, colour = col, linewidth = 1.1) +
-    scale_x_continuous(breaks = 7:18, limits = c(7, 18)) +
-    labs(x = NULL, y = lab) +
-    theme_classic(base_size = 11)
+# Adapted from tesis f5.R. Same hourly pooling; base R graphics.
+hourly_summary <- function(d) {
+  d$h <- as.numeric(substr(d$hora, 1, 2)) +
+    as.numeric(substr(d$hora, 4, 5)) / 60
+  d$bloque <- floor(d$h)
+  means <- aggregate(d[c('h', 'temperatura', 'hr')],
+                     list(bloque = d$bloque), mean)
+  list(observations = d, means = means)
+}
+plot_environment <- function(result, file) {
+  png(file, width = 1400, height = 650, res = 120)
+  on.exit(dev.off())
+  par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+  for (y in c('temperatura', 'hr')) {
+    label <- if (y == 'temperatura') 'Temperature (source units)' else 'Relative humidity (source units)'
+    plot(result$observations$h, result$observations[[y]], pch = 16,
+         col = adjustcolor('#247A61', alpha.f = 0.3),
+         xlab = 'Hour of day', ylab = label, xlim = c(7, 18))
+    lines(result$means$h, result$means[[y]], col = '#1E4D78', lwd = 2)
+  }
 }
