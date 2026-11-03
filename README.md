@@ -51,11 +51,11 @@ Or, in RStudio with the repository as the working directory:
 source("run_analysis.R")
 ```
 
-Before running, export the supplied Excel sheets as UTF-8 CSV into `data/insect_counts.csv` and `data/environment.csv`, preserving headers. See [input mapping](docs/methods-and-inputs.md). Data files are not yet published.
+Both input datasets are included in [data/](data/); no manual Excel export is needed. See [input mapping](docs/methods-and-inputs.md).
 
-No additional R packages are required. The script reads local CSV data, validates inputs and reported results, and writes four summary tables, two PNG charts and session information to `outputs/`.
+No additional R packages are required. The script reads the included CSV data, validates inputs and reported results, and writes four summary tables, two PNG charts and session information to `outputs/`.
 
-The locally validated CSV exports preserve the values and column names from the two supplied Excel sheets. The workflow adapts the selected original calculations to base R; it reproduces these summaries and plots, not every thesis figure.
+The included CSV exports preserve the values and column names from the two supplied Excel sheets. The workflow adapts the selected original calculations to base R; it reproduces these summaries and plots, not every thesis figure.
 
 ## Scope
 
