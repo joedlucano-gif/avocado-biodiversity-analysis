@@ -6,6 +6,10 @@ A biodiversity baseline built from **8,299 insects and 32 morphospecies** record
 
 [Case study in Notion](https://app.notion.com/p/40c00e5930d98197b36bcf3fd769a0b2) · [Run the analysis](#run-the-analysis)
 
+![Relative abundance of insects by order in avocado mulch](assets/relative-abundance.png)
+
+*Relative abundance by insect order, generated from the included data with R.*
+
 ## The question
 
 Which insects occur in avocado mulch, and how are their abundance and diversity distributed?
