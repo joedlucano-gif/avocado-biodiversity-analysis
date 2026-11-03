@@ -4,7 +4,7 @@
 
 A biodiversity baseline built from **8,299 insects and 32 morphospecies** recorded on two Hass avocado farms in Olmos, Peru.
 
-[Case study in Notion](https://app.notion.com/p/40c00e5930d98197b36bcf3fd769a0b2) · [Selected R code](R/)
+[Case study in Notion](https://app.notion.com/p/40c00e5930d98197b36bcf3fd769a0b2) · [Run the analysis](#run-the-analysis)
 
 ## The question
 
@@ -34,10 +34,28 @@ The study provides a local baseline for monitoring insect communities in avocado
 
 - [Relative abundance](R/01_relative_abundance.R) — grouped counts and percentages.
 - [Diversity indices](R/02_diversity_indices.R) — reusable ecological calculations.
-- [Environmental plots](R/03_environmental_plots.R) — hourly summaries and ggplot visualisation.
+- [Environmental plots](R/03_environmental_plots.R) — hourly summaries and environmental plots.
 - [Methods, input requirements and source](docs/methods-and-inputs.md).
 
-These are selected excerpts from the original scripts, not a complete reproducible pipeline. The input Excel workbooks are not included; the code was not rerun during publication.
+## Run the analysis
+
+Install R, download this repository and open a terminal in its root folder:
+
+```sh
+Rscript run_analysis.R
+```
+
+Or, in RStudio with the repository as the working directory:
+
+```r
+source("run_analysis.R")
+```
+
+Before running, export the supplied Excel sheets as UTF-8 CSV into `data/insect_counts.csv` and `data/environment.csv`, preserving headers. See [input mapping](docs/methods-and-inputs.md). Data files are not yet published.
+
+No additional R packages are required. The script reads local CSV data, validates inputs and reported results, and writes four summary tables, two PNG charts and session information to `outputs/`.
+
+The locally validated CSV exports preserve the values and column names from the two supplied Excel sheets. The workflow adapts the selected original calculations to base R; it reproduces these summaries and plots, not every thesis figure.
 
 ## Scope
 
@@ -50,3 +68,5 @@ Biological Sciences thesis, Universidad Nacional de Trujillo. **Completed; defen
 ---
 
 **Daniel Lucano** · [Portfolio](https://app.notion.com/p/40b00e5930d980aa8797efb988609163) · [LinkedIn](https://www.linkedin.com/in/daniel-lucano-nieves-109886270)
+
+Validated with R 4.3.3: all result checks passed; both plots were generated and visually reviewed.
